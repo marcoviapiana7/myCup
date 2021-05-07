@@ -1,0 +1,7 @@
+{
+  "name": "myCup",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
