@@ -24,3 +24,40 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+@import "./assets/style.css";
+
+.row {
+  padding-top: 1rem;
+}
+
+.xsWidth {
+  max-width: 60%;
+}
+
+.mdHeight {
+  max-height: 80%;
+}
+
+/* Avatar */
+.xlDimensions {
+  height: 10rem !important;
+  width: 10rem !important;
+  font-size: 5rem !important;
+
+  >span {
+    font-size: 4rem !important;
+  }
+}
+
+
+//Card
+.bodyPadding {
+  .p-card .p-card-body {
+    padding-top: 0 !important;
+
+    .p-card .p-card-content {
+      padding-top: 0 !important;
+    }
+  }
+
+}
