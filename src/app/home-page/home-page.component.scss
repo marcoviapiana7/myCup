@@ -1,0 +1,30 @@
+#homePage {
+  .fluttuante {
+    position: sticky;
+    width: 100%;
+    top: 0;
+    z-index: 2;
+    display: block;
+  }
+
+  .p-toast {
+    width: 20rem;
+  }
+
+  .p-sidebar-left {
+    top: 4%;
+  }
+
+}
+
+@media screen and (min-width : 1000px) {
+  .verticalmenu {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width : 1000px) {
+  .horizontalmenu {
+    display: none !important;
+  }
+}

@@ -1,0 +1,60 @@
+<!-- Home Quando l'utente è loggato -->
+<div class="row p-4" *ngIf="authService.isLoggedIn == true">
+  <div class="pt-2 col-lg-6 col-md-6 col-sm-6 d-flex justify-content-center">
+    <p-card header="Giocatori" [style]="{width: '360px'}" styleClass="p-card-shadow">
+      <ng-template pTemplate="header">
+        <img alt="Card" src="assets/giocatore.png" width="360" height="270">
+      </ng-template>
+      <p>Gestione giocatori: crea, modifica, elimina i giocatori presenti all'interno del database</p>
+      <ng-template pTemplate="footer">
+        <p-splitButton id="create-player" class="d-flex justify-content-end" label="Giocatori" icon="pi pi-user-plus"
+          [model]="playerItems" (onClick)="naviga('create-player')">
+        </p-splitButton>
+      </ng-template>
+    </p-card>
+  </div>
+
+  <div class="pt-2 col-lg-6 col-md-6 col-sm-6 d-flex justify-content-center">
+    <p-card header="Partite" [style]="{width: '360px'}" styleClass="p-card-shadow">
+      <ng-template pTemplate="header">
+        <img alt="Card" src="assets/gruppo.jpg" width="360" height="270">
+      </ng-template>
+      <p>Gestione partite: crea, modifica, elimina le partite presenti all'interno del database</p>
+      <ng-template pTemplate="footer">
+        <p-splitButton class="d-flex justify-content-end" label="Partite" icon="pi pi-plus" [model]="matchItems"
+          (onClick)="naviga('create-match')">
+        </p-splitButton>
+      </ng-template>
+    </p-card>
+  </div>
+
+  <div class="pt-2 col-lg-6 col-md-6 col-sm-6 d-flex justify-content-center">
+    <p-card header="Torneo" [style]="{width: '360px'}" styleClass="p-card-shadow">
+      <ng-template pTemplate="header">
+        <img alt="Card" src="assets/coppa.png" width="360" height="270">
+      </ng-template>
+      <p>Gestione tornei: crea, modifica, elimina un torneo</p>
+      <ng-template pTemplate="footer">
+        <p-splitButton class="d-flex justify-content-end" label="Aggiungi Torneo" icon="pi pi-plus" [model]="cupItems"
+          (onClick)="creaTorneo = true">
+        </p-splitButton>
+      </ng-template>
+    </p-card>
+  </div>
+
+  <div class="pt-2 col-lg-6 col-md-6 col-sm-6 d-flex justify-content-center">
+    <p-card header="Scarica classifiche" [style]="{width: '360px'}" styleClass="p-card-shadow">
+      <ng-template pTemplate="header">
+        <img alt="Card" src="assets/gruppo.jpg" width="360" height="270">
+      </ng-template>
+      <p>Scarica la classifica in PDF/xls di un campionato</p>
+      <ng-template pTemplate="footer">
+        <p-button class="d-flex justify-content-end" label="Vai" icon="pi pi-download" (click)="naviga('classifiche')">
+        </p-button>
+      </ng-template>
+    </p-card>
+  </div>
+
+</div>
+
+<create-cup-dialog *ngIf="creaTorneo" (cupEmitter)="creaTorneo = false"></create-cup-dialog>

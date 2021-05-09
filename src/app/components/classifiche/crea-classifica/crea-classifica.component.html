@@ -1,0 +1,81 @@
+<div class="row">
+  <div class="col-lg-4 col-md-6 col-6">
+    <h5>Scegli torneo</h5>
+    <p-dropdown [options]="torneiDropdown" [(ngModel)]="torneo" optionLabel="value" [filter]="true" filterBy="value"
+      [showClear]="true" placeholder="Seleziona torneo" (onChange)="getAllMatches()">
+      <ng-template pTemplate="selectedItem">
+        <div class="tornei tornei-nome" *ngIf="torneo">
+          <div>{{torneo.value}}</div>
+        </div>
+      </ng-template>
+      <ng-template let-torneo pTemplate="item">
+        <div class="tornei">
+          <div>{{torneo.value}}</div>
+        </div>
+      </ng-template>
+    </p-dropdown>
+  </div>
+</div>
+<div *ngIf="torneo && matches.length>0 && playersClassifica.length>0">
+  <button class="mr-2" type="button" pButton pRipple icon="pi pi-envelope" (click)="dt.exportCSV()"
+    tooltipPosition="bottom"></button>
+  <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success mr-2"
+    pTooltip="XLS" tooltipPosition="bottom"></button>
+  <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="generatePdf()" class="p-button-warning mr-2"
+    pTooltip="PDF" tooltipPosition="bottom"></button>
+  <button type="button" pButton pRipple icon="pi pi-filter" class="p-button-info ml-auto" pTooltip="Selection Only"
+    tooltipPosition="bottom"></button>
+</div>
+<div id="capture" class="row">
+  <p-table *ngIf="torneo && matches.length>0 && playersClassifica.length>0" #dt autoLayout=true [columns]="cols"
+    [value]="playersClassifica" sortMode="multiple" [rowHover]="true" [multiSortMeta]="multiSortMeta">
+
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+
+        <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon>
+        </th>
+        <th pSortableColumn="cognome">Cognome <p-sortIcon field="cognome"></p-sortIcon>
+        </th>
+        <th pSortableColumn="vinte">V <p-sortIcon field="vinte"></p-sortIcon>
+        </th>
+        <th pSortableColumn="pareggiate">N <p-sortIcon field="pareggiate"></p-sortIcon>
+        </th>
+        <th pSortableColumn="perse">P <p-sortIcon field="perse"></p-sortIcon>
+        </th>
+        <th pSortableColumn="giocate">PG <p-sortIcon field="giocate"></p-sortIcon>
+        </th>
+        <th pSortableColumn="gol">Gol <p-sortIcon field="gol"></p-sortIcon>
+        </th>
+        <th pSortableColumn="autogol">Autogol <p-sortIcon field="autogol"></p-sortIcon>
+        </th>
+        <th pSortableColumn="punti">Punti <p-sortIcon field="punti"></p-sortIcon>
+        </th>
+        <th pSortableColumn="mediaPunti">Media <p-sortIcon field="mediaPunti"></p-sortIcon>
+        </th>
+        <th pSortableColumn="fattore">Fattore <p-sortIcon field="fattore"></p-sortIcon>
+        </th>
+        <th style="background-color: #88ff0063;" pSortableColumn="mediaFattore">Media corretta <p-sortIcon
+            field="mediaFattore">
+          </p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-player>
+      <tr id="body">
+        <td>{{player.nome}}</td>
+        <td>{{player.cognome}}</td>
+        <td>{{player.vinte}}</td>
+        <td>{{player.pareggiate}}</td>
+        <td>{{player.perse}}</td>
+        <td>{{player.giocate}}</td>
+        <td>{{player.gol}}</td>
+        <td>{{player.autogol}}</td>
+        <td>{{player.punti}}</td>
+        <td>{{player.mediaPunti}}</td>
+        <td>{{player.fattore}}</td>
+        <td style="background-color: #88ff0063;">{{player.mediaFattore}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

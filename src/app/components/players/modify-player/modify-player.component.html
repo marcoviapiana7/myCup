@@ -1,0 +1,116 @@
+<div class="modifyTable">
+  <h1>Modifica Giocatori</h1>
+  <h3>In questa pagina puoi consultare la lista dei giocatori, modificarne il valore, eliminarli e crearne nuovi</h3>
+  <h3 *ngIf="!schermoGrande">Clicca su un giocatore per modificarlo</h3>
+
+  <p-toolbar styleClass="mb-4">
+    <ng-template pTemplate="left">
+      <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
+        (click)="createPlayer()"></button>
+      <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="ml-2 mr-2 p-button-danger"
+        (click)="deleteSelectedPlayersMessage()" [disabled]="!selectedPlayers || !selectedPlayers.length"></button>
+    </ng-template>
+
+    <ng-template pTemplate="right">
+      <button pButton pRipple label="Esporta" icon="pi pi-file-excel" class="ml-2 p-button-help"
+        (click)="esporta()"></button>
+    </ng-template>
+  </p-toolbar>
+
+  <div style="position: relative;">
+    <p-table #dt [value]="players" [rows]="10" [paginator]="true" [globalFilterFields]="['nome','cognome','ruolo']"
+      [(selection)]="selectedPlayers" [rowHover]="true" dataKey="id"
+      currentPageReportTemplate="Risultati per pagina : {last} di {totalRecords} giocatori"
+      [showCurrentPageReport]="true">
+
+      <!--Template for search and title-->
+      <ng-template pTemplate="caption">
+        <div class="d-flex align-items-center justify-content-between">
+          <h5 class="p-m-0">Gestione giocatori</h5>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+              placeholder="Cerca..." />
+          </span>
+        </div>
+      </ng-template>
+
+      <!--Template per header-->
+      <ng-template pTemplate="header">
+        <tr id="header">
+          <th>
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+          <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon>
+          </th>
+          <th pSortableColumn="cognome">Cognome <p-sortIcon field="cognome"></p-sortIcon>
+          </th>
+          <th *ngIf="schermoGrande" pSortableColumn="soprannome">Soprannome <p-sortIcon field="soprannome"></p-sortIcon>
+          </th>
+          <th *ngIf="schermoGrande">Foto</th>
+          <th pSortableColumn="ruolo">Ruolo <p-sortIcon field="ruolo"></p-sortIcon>
+          </th>
+          <th *ngIf="schermoGrande"></th>
+        </tr>
+      </ng-template>
+
+      <!--Template risultati giocatori-->
+      <ng-template pTemplate="body" let-player>
+        <tr id="body">
+          <td>
+            <p-tableCheckbox [value]="player"></p-tableCheckbox>
+          </td>
+          <td (click)="editPlayer(player)" style="font-weight: 600;">{{player.nome}}</td>
+          <td (click)="editPlayer(player)" style="font-weight: 600;">{{player.cognome}}</td>
+          <td (click)="editPlayer(player)" *ngIf="schermoGrande">
+            <p-avatar *ngIf="player.foto" styleClass=" mr-2" size="large" shape="circle">
+              <img src="{{player.foto}}">
+            </p-avatar>
+            <p-avatar *ngIf="!player.foto" icon="pi pi-user" styleClass="mr-2" size="large" shape="circle">
+            </p-avatar>
+          </td>
+          <td (click)="editPlayer(player)" [ngClass]="schermoGrande ? '' : 'ruoloStyle'">
+            <span>{{ schermoGrande ? player.ruolo : player.ruolo[0]}}</span>
+          </td>
+          <td (click)="editPlayer(player)" *ngIf="schermoGrande">
+            <button pButton pRipple icon=" pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+              (click)="editPlayer(player)"></button>
+            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+              (click)="deletePlayer(player)"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          In totale ci sono {{players ? players.length : 0 }} giocatori.
+        </div>
+      </ng-template>
+
+    </p-table>
+  </div>
+</div>
+<modify-player-dialog *ngIf="modifyPlayerDialog" (modifyEmitter)="modifyPlayerDialog = false" [player]="modifyPlayer">
+</modify-player-dialog>
+
+
+<p-toast position="top-center" key="c" (onClose)="deleteSelectedPlayers(false)" [baseZIndex]="5000">
+  <ng-template let-message2 pTemplate="message2">
+    <div class="p-flex p-flex-column" style="flex: 1">
+      <div class="p-text-center">
+        <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+        <h4>{{message2.summary}}</h4>
+        <p>{{message2.detail}}</p>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <button type="button" pButton (click)="deleteSelectedPlayers(true)" label="Yes"
+            class="p-button-success"></button>
+        </div>
+        <div class="col-6">
+          <button type="button" pButton (click)="deleteSelectedPlayers(false)" label="No"
+            class="p-button-secondary"></button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>

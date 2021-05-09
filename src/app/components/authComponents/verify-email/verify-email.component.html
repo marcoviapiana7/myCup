@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-12 d-flex justify-content-center">
+    <h2>Grazie per esserti registrato</h2>
+  </div>
+</div>
+<div class="row" *ngIf="authService.userData as user">
+  <div class="col-12">
+    <p class="text-center">Email inviata all'indirizzo <strong>{{user.email}}</strong>.</p>
+    <p class="text-center">Verifica il tuo indirizzo mail</p>
+  </div>
+</div>
+
+<!-- Calling sendVerificationMail() method using authService Api -->
+
+<div class="row pt-3">
+  <div class="col-12 d-flex justify-content-center">
+    <p-button label="Invia nuovamente" (click)="authService.sendVerificationMail()"></p-button>
+  </div>
+</div>
+
+<div class="row pt-3 ">
+  <div class="pt-1 col-12 d-flex justify-content-center">
+    <span style="cursor:pointer" (click)="backLogin()">Torna al login</span>
+  </div>
+</div>

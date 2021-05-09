@@ -1,0 +1,82 @@
+<p-dialog modal="modal" header="Seleziona Giocatori" [(visible)]="showed" (onHide)="closeDialog()">
+  <div class="selezionaGiocatori">
+
+    <p-table *ngIf="playersToShow" #dt [value]="playersToShow" [rows]="6" [paginator]="true"
+      [globalFilterFields]="['ruolo','nome','cognome']" [(selection)]="selectedPlayers" [rowHover]="true" dataKey="id"
+      sortField="ruolo" [sortOrder]="-1" currentPageReportTemplate="Giocatori selezionati: {{selectedPlayers.length}}"
+      [showCurrentPageReport]="true">
+
+      <!--Template for search and title-->
+      <ng-template pTemplate="caption">
+        <div class="d-flex align-items-center justify-content-between">
+          <h5 class="p-m-0">Seleziona giocatori</h5>
+          <span class="p-input-icon-left">
+            <i *ngIf="schermoGrande" class="pi pi-search"></i>
+            <i *ngIf="!schermoGrande" style="right: 0.5rem; left:none !important;" class="pi pi-search"></i>
+            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+              placeholder="Cerca..." />
+          </span>
+        </div>
+      </ng-template>
+
+      <!--Template per header-->
+      <ng-template pTemplate="header">
+        <tr id="header">
+          <th>
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+          <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon>
+          </th>
+          <th pSortableColumn="cognome">Cognome <p-sortIcon field="cognome"></p-sortIcon>
+          </th>
+          <th *ngIf="schermoGrande" pSortableColumn="soprannome">Soprannome <p-sortIcon field="soprannome"></p-sortIcon>
+          </th>
+          <th *ngIf="schermoGrande">Foto</th>
+          <th pSortableColumn="ruolo">Ruolo <p-sortIcon field="ruolo"></p-sortIcon>
+          </th>
+          <th *ngIf="schermoGrande"></th>
+        </tr>
+      </ng-template>
+
+      <!--Template risultati giocatori-->
+      <ng-template pTemplate="body" let-player>
+        <tr *ngIf="!avversari.includes(player)" id="body">
+          <td>
+            <p-tableCheckbox [value]="player"></p-tableCheckbox>
+          </td>
+          <td style="font-weight: 600;">{{player.nome}}</td>
+          <td style="font-weight: 600; text-overflow: ellipsis; overflow: hidden;">{{player.cognome}}</td>
+          <td *ngIf="schermoGrande" style="font-weight: 600;">{{player.soprannome}}</td>
+          <td *ngIf="schermoGrande">
+            <p-avatar *ngIf="player.foto" styleClass="" size="large" shape="circle">
+              <img src="{{player.foto}}">
+            </p-avatar>
+            <p-avatar *ngIf="!player.foto" icon="pi pi-user" styleClass="mr-2" size="large" shape="circle">
+            </p-avatar>
+          </td>
+          <td [ngClass]="schermoGrande ? '' : 'ruoloStyle'">
+            <span>{{ schermoGrande ? player.ruolo : player.ruolo[0]}}</span>
+          </td>
+          <td *ngIf="schermoGrande">
+            <button pButton pRipple icon=" pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+              (click)="editPlayer(player)"></button>
+            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+              (click)="deletePlayer(player)"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <!--ng-template pTemplate="summary">
+        <div class=" d-flex p-ai-center p-jc-between">
+          In totale ci sono {{players ? players.length : 0 }} giocatori.
+        </div>
+      </ng-template-->
+
+    </p-table>
+
+  </div>
+
+  <p-footer>
+    <button [disabled]="!selectedPlayers" pButton pRipple label="Conferma" icon="pi pi-check"
+      (click)="closeDialog()"></button>
+  </p-footer>
+</p-dialog>

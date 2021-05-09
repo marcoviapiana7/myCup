@@ -1,0 +1,54 @@
+.modifyMatch {
+
+  .p-dropdown {
+    width: 10rem;
+  }
+
+  .p-calendar {
+
+    .p-datepicker {
+      top: 43px !important;
+    }
+  }
+
+  .p-card {
+    color: black !important;
+
+    .card-body {
+      padding: 0;
+    }
+  }
+
+  .noBorderSquadName {
+    width: 100%;
+    border: 0;
+    font-size: 30px;
+    height: 70%;
+    padding: 0;
+  }
+
+  .noBorder {
+    width: 100%;
+    border: 0;
+    font-size: 86px;
+    height: 70%;
+    padding: 0;
+  }
+
+  .textSize {
+    font-size: 86px;
+  }
+
+  .p-card .p-card-body {
+    padding-top: 0;
+
+    .p-card .p-card-content {
+      padding-top: 0;
+    }
+  }
+
+  .iconeGiocatore {
+    border-bottom: 1px solid #dfdcdc;
+  }
+
+}

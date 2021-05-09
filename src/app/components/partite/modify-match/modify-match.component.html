@@ -1,0 +1,491 @@
+<h1>Aggiungi partita</h1>
+<div class="modifyMatch p-2">
+  <div class="row pb-3">
+
+    <div class="col-lg-4 col-md-6 col-6">
+      <h5 for="icon">Data Partita</h5>
+      <p-calendar [(ngModel)]="data" dateFormat="dd/mm/yy" [showTime]="true" [showIcon]="true" inputId="icon">
+      </p-calendar>
+    </div>
+
+
+  </div>
+
+  <ng-container *ngIf="torneo && data">
+    <p-card>
+
+      <div class="row">
+        <div class="col-6 d-flex justify-content-center">
+          <input [(ngModel)]="partita.squadra1.nome" type="text" style="color: black; text-align: end;"
+            class="form-control noBorderSquadName" />
+        </div>
+        <div class="col-6 d-flex justify-content-center">
+          <input [(ngModel)]="partita.squadra2.nome" type="text" style="color:black; text-align: start;"
+            class="form-control noBorderSquadName" />
+        </div>
+      </div>
+
+      <div class="row p-0">
+        <div class="col-5 d-flex align-self-center">
+          <input [(ngModel)]="partita.punteggio1" type="number" class="form-control noBorder"
+            style="color: black; text-align: end;" />
+        </div>
+
+        <div class="col-2 d-flex justify-content-center">
+          <span class="textSize">-</span>
+        </div>
+
+        <div class="col-5 d-flex align-self-center">
+          <input [(ngModel)]="partita.punteggio2" type="number" class="form-control noBorder" style="color:black" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div style="display: grid" class="col-5 justify-content-end">
+          <div class="row pt-0" *ngFor="let marcatore of partita.marcatori1 |keyvalue">
+            <!-- {{marcatore.cognome}} {{marcatore.nome[0]}}. ({{partita.marcatori1[marcatore.id]}}) -->
+            <span>{{getMarcatori(marcatore,1)}} ({{marcatore.value}})</span>
+          </div>
+          <div class="row pt-0" *ngFor="let marcatore of partita.autogol2 |keyvalue">
+            <span>{{getMarcatori(marcatore,2)}} ({{marcatore.value}})</span>
+          </div>
+        </div>
+
+        <div style="display: grid" class="col-5 justify-content-end">
+          <div class="row pt-0" *ngFor="let marcatore of partita.marcatori2 |keyvalue">
+            <span>{{getMarcatori(marcatore,2)}} ({{marcatore.value}})</span>
+          </div>
+          <div class="row pt-0" *ngFor="let marcatore of partita.autogol1 |keyvalue">
+            <span>{{getMarcatori(marcatore,1)}} ({{marcatore.value}})</span>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-5">
+          <span>Gol casa : {{getGoal(1)}} </span>
+        </div>
+        <div class="col-7 d-flex justify-content-end">
+          <span>Gol ospiti : {{getGoal(2)}} </span>
+        </div>
+      </div>
+    </p-card>
+
+    <!--card per visualizzare i giocatori
+          selezionati-->
+    <div class="row">
+      <div class="col-6 pr-1">
+
+        <p-card>
+
+          <ng-template pTemplate="header">
+            <div class="pt-0 row">
+              <div class="col-8">
+                <h4 style="color:black">{{partita.squadra1.nome}}</h4>
+              </div>
+              <div class="col-4 d-flex justify-content-end pr-4">
+                <i class="pi pi-user-plus " style="font-size: 2rem; cursor: pointer;"
+                  (click)="showSelectDialog = true; squadraSelezionata='1'; giocatoriSelezionati = partita.squadra1.giocatori"></i>
+              </div>
+            </div>
+          </ng-template>
+
+          <div *ngIf="getConvocatiRuolo('P',1)" class="portiere">
+            <div class="row p-0">
+              <span style="font-weight:600; color:black">Portiere</span>
+            </div>
+
+            <ng-container *ngFor="let player of partita.squadra1.giocatori">
+              <div *ngIf="player?.ruolo[0]=='P'" class="row p-0">
+                <div class="col-10 p-0">
+                  <span>{{player.cognome}} {{player.nome[0]}}. </span>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="pi pi-trash " (click)="eliminaGiocatore(player,'1')"></i>
+                </div>
+              </div>
+              <div *ngIf="player?.ruolo[0]=='P'" class="row p-0 iconeGiocatore">
+                <div class="col-2 p-0">
+                  <i class="icon-cartellino-giallo" (click)="addAmmonito(player)"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-cartellino-rosso" (click)="addEspulso(player)"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-pallone-verde" (click)="addGoal(player,'1')"><span class="path1"></span><span
+                      class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-pallone-rosso" (click)="deleteGoal(player,'1')"><span class="path1"></span><span
+                      class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-autogol " (click)="addAutogol(player,'1')"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-scarpa" (click)="addAssist(player)"></i>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+
+          <div *ngIf="getConvocatiRuolo('D',1)" class="difensori pt-1">
+            <div class="row p-0">
+              <span style="font-weight:600; color:black">Difensori</span>
+            </div>
+
+            <ng-container *ngFor="let player of partita.squadra1.giocatori">
+              <div *ngIf="player?.ruolo[0]=='D'" class="row p-0">
+                <div class="col-10 p-0">
+                  <span>{{player.cognome}} {{player.nome[0]}}. </span>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="pi pi-trash " (click)="eliminaGiocatore(player,'1')"></i>
+                </div>
+              </div>
+              <div *ngIf="player?.ruolo[0]=='D'" class="row p-0 iconeGiocatore">
+                <div class="col-2 p-0">
+                  <i class="icon-cartellino-giallo" (click)="addAmmonito(player)"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-cartellino-rosso" (click)="addEspulso(player)"><span class="path1"></span><span
+                      class="path2"></span></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-pallone-verde" (click)="addGoal(player,'1')"><span class="path1"></span><span
+                      class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-pallone-rosso" (click)="deleteGoal(player,'1')"><span class="path1"></span><span
+                      class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-autogol " (click)="addAutogol(player,'1')"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-scarpa" (click)="addAssist(player)"></i>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+
+          <div *ngIf="getConvocatiRuolo('C',1)" class="centrocampisti pt-1">
+            <div class="row p-0">
+              <span style="font-weight:600; color:black">Centrocampisti</span>
+            </div>
+
+            <ng-container *ngFor="let player of partita.squadra1.giocatori">
+              <div *ngIf="player?.ruolo[0]=='C'" class="row p-0">
+                <div class="col-10 p-0">
+                  <span>{{player.cognome}} {{player.nome[0]}}. </span>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="pi pi-trash " (click)="eliminaGiocatore(player,'1')"></i>
+                </div>
+              </div>
+              <div *ngIf="player?.ruolo[0]=='C'" class="row p-0 iconeGiocatore">
+                <div class="col-2 p-0">
+                  <i class="icon-cartellino-giallo" (click)="addAmmonito(player)"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-cartellino-rosso" (click)="addEspulso(player)"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-pallone-verde" (click)="addGoal(player,'1')"><span class="path1"></span><span
+                      class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-pallone-rosso" (click)="deleteGoal(player,'1')"><span class="path1"></span><span
+                      class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-autogol " (click)="addAutogol(player,'1')"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-scarpa" (click)="addAssist(player)"></i>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+
+          <div *ngIf="getConvocatiRuolo('A',1)" class="attaccanti pt-1">
+            <div class="row p-0">
+              <span style="font-weight:600; color:black">Attaccanti</span>
+            </div>
+
+            <ng-container *ngFor="let player of partita.squadra1.giocatori">
+              <div *ngIf="player?.ruolo[0]=='A'" class="row p-0">
+                <div class="col-10 p-0">
+                  <span>{{player.cognome}} {{player.nome[0]}}. </span>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="pi pi-trash " (click)="eliminaGiocatore(player,'1')"></i>
+                </div>
+              </div>
+              <div *ngIf="player?.ruolo[0]=='A'" class="row p-0 iconeGiocatore">
+                <div class="col-2 p-0">
+                  <i class="icon-cartellino-giallo" (click)="addAmmonito(player)"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-cartellino-rosso" (click)="addEspulso(player)"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-pallone-verde" (click)="addGoal(player,'1')"><span class="path1"></span><span
+                      class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-pallone-rosso" (click)="deleteGoal(player,'1')"><span class="path1"></span><span
+                      class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-autogol " (click)="addAutogol(player,'1')"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-scarpa" (click)="addAssist(player)"></i>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+
+        </p-card>
+        <span>{{partita.squadra1.giocatori.length}} Giocatori</span>
+      </div>
+
+      <div class="col-6 pl-1">
+
+        <p-card>
+
+          <ng-template pTemplate="header">
+            <div class="pt-0 row">
+              <div class="col-8">
+                <h4 style="color:black">{{partita.squadra2.nome}}</h4>
+              </div>
+              <div class="col-4 d-flex justify-content-end pr-4">
+                <i class="pi pi-user-plus " style="font-size: 2rem; cursor: pointer;"
+                  (click)="showSelectDialog = true; squadraSelezionata='2'; giocatoriSelezionati = partita.squadra2.giocatori"></i>
+              </div>
+            </div>
+          </ng-template>
+
+          <div *ngIf="getConvocatiRuolo('P',2)" class="portiere">
+            <div class="row p-0">
+              <span style="font-weight:600; color:black">Portiere</span>
+            </div>
+
+            <ng-container *ngFor="let player of partita.squadra2.giocatori">
+              <div *ngIf="player?.ruolo[0]=='P'" class="row p-0">
+                <div class="col-10 p-0">
+                  <span>{{player.cognome}} {{player.nome[0]}}. </span>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="pi pi-trash " (click)="eliminaGiocatore(player,'2')"></i>
+                </div>
+              </div>
+              <div *ngIf="player?.ruolo[0]=='P'" class="row p-0 iconeGiocatore">
+                <div class="col-2 p-0">
+                  <i class="icon-cartellino-giallo" (click)="addAmmonito(player)"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-cartellino-rosso" (click)="addEspulso(player)"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-pallone-verde" (click)="addGoal(player,'2')"><span class="path1"></span><span
+                      class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-pallone-rosso" (click)="deleteGoal(player,'2')"><span class="path1"></span><span
+                      class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-autogol " (click)="addAutogol(player,'2')"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-scarpa" (click)="addAssist(player)"></i>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+
+          <div *ngIf="getConvocatiRuolo('D',2)" class="difensori pt-1">
+            <div class="row p-0">
+              <span style="font-weight:600; color:black">Difensori</span>
+            </div>
+
+            <ng-container *ngFor="let player of partita.squadra2.giocatori">
+              <div *ngIf="player?.ruolo[0]=='D'" class="row p-0">
+                <div class="col-10 p-0">
+                  <span>{{player.cognome}} {{player.nome[0]}}. </span>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="pi pi-trash " (click)="eliminaGiocatore(player,'2')"></i>
+                </div>
+              </div>
+              <div *ngIf="player?.ruolo[0]=='D'" class="row p-0 iconeGiocatore">
+                <div class="col-2 p-0">
+                  <i class="icon-cartellino-giallo" (click)="addAmmonito(player)"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-cartellino-rosso" (click)="addEspulso(player)"><span class="path1"></span><span
+                      class="path2"></span></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-pallone-verde" (click)="addGoal(player,'2')"><span class="path1"></span><span
+                      class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-pallone-rosso" (click)="deleteGoal(player,'2')"><span class="path1"></span><span
+                      class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-autogol " (click)="addAutogol(player,'2')"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-scarpa" (click)="addAssist(player)"></i>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+
+          <div *ngIf="getConvocatiRuolo('C',2)" class="centrocampisti pt-1">
+            <div class="row p-0">
+              <span style="font-weight:600; color:black">Centrocampisti</span>
+            </div>
+
+            <ng-container *ngFor="let player of partita.squadra2.giocatori">
+              <div *ngIf="player?.ruolo[0]=='C'" class="row p-0">
+                <div class="col-10 p-0">
+                  <span>{{player.cognome}} {{player.nome[0]}}. </span>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="pi pi-trash " (click)="eliminaGiocatore(player,'2')"></i>
+                </div>
+              </div>
+              <div *ngIf="player?.ruolo[0]=='C'" class="row p-0 iconeGiocatore">
+                <div class="col-2 p-0">
+                  <i class="icon-cartellino-giallo" (click)="addAmmonito(player)"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-cartellino-rosso" (click)="addEspulso(player)"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-pallone-verde" (click)="addGoal(player,'2')"><span class="path1"></span><span
+                      class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-pallone-rosso" (click)="deleteGoal(player,'2')"><span class="path1"></span><span
+                      class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-autogol " (click)="addAutogol(player,'2')"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-scarpa" (click)="addAssist(player)"></i>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+
+          <div *ngIf="getConvocatiRuolo('A',2)" class="attaccanti pt-1">
+            <div class="row p-0">
+              <span style="font-weight:600; color:black">Attaccanti</span>
+            </div>
+
+            <ng-container *ngFor="let player of partita.squadra2.giocatori">
+              <div *ngIf="player?.ruolo[0]=='A'" class="row p-0">
+                <div class="col-10 p-0">
+                  <span>{{player.cognome}} {{player.nome[0]}}. </span>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="pi pi-trash " (click)="eliminaGiocatore(player,'2')"></i>
+                </div>
+              </div>
+              <div *ngIf="player?.ruolo[0]=='A'" class="row p-0 iconeGiocatore">
+                <div class="col-2 p-0">
+                  <i class="icon-cartellino-giallo" (click)="addAmmonito(player)"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-cartellino-rosso" (click)="addEspulso(player)"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-pallone-verde" (click)="addGoal(player,'2')"><span class="path1"></span><span
+                      class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-pallone-rosso" (click)="deleteGoal(player,'2')"><span class="path1"></span><span
+                      class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-autogol " (click)="addAutogol(player,'2')"></i>
+                </div>
+                <div class="col-2 p-0">
+                  <i class="icon-scarpa" (click)="addAssist(player)"></i>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+
+        </p-card>
+
+        <span>{{partita.squadra2.giocatori.length}} Giocatori</span>
+
+      </div>
+    </div>
+
+    <!--Ammoniti-->
+    <div class="row pl-3">
+      <span>Ammoniti: [ </span>
+      <div *ngFor="let ammonito of partita.ammoniti; let last = last">
+        <span *ngIf="!last">{{ammonito.cognome}} {{ammonito.nome[0]}}., </span>
+        <span *ngIf="last">{{ammonito.cognome}} {{ammonito.nome[0]}}. </span>
+      </div>
+      <span>]</span>
+    </div>
+
+    <!--Espulsi-->
+    <div class="row pl-3">
+      <span>Espulsi: [ </span>
+      <ng-container *ngFor="let espulso of partita.espulsi; let last = last">
+        <span *ngIf="!last">{{espulso.cognome}} {{espulso.nome[0]}}., </span>
+        <span *ngIf="last">{{espulso.cognome}} {{espulso.nome[0]}}. </span>
+      </ng-container>
+      <span>]</span>
+    </div>
+
+    <!--Assist-->
+    <div class="row pl-3">
+      <span>Assist: [ </span>
+      <ng-container *ngFor="let player of partita.assist |keyvalue; let last = last">
+
+        <span *ngIf="!last">{{getMarcatori(player)}} ({{player.value}}), </span>
+        <span *ngIf="last">{{getMarcatori(player)}} ({{player.value}})</span>
+      </ng-container>
+      <span>] </span>
+    </div>
+
+    <!--Reset-->
+    <div class="row">
+      <div class="col-6">
+        <span *ngIf="partita.assist" (click)="deleteAllAssist()"> RESET ASSISTS</span>
+      </div>
+      <div class="col-6 d-flex justify-content-end">
+        <span *ngIf="partita.autogol1 || partita.autogol2" (click)="deleteAllAutogol()"> RESET
+          AUTOGOL</span>
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-6 d-flex justify-content-end">
+        <span>Inserire almeno 5 giocatori per squadra</span>
+      </div>
+      <div class="col-6 d-flex justify-content-end">
+        <p-button label="Salva" (click)="salva()"></p-button>
+      </div>
+    </div>
+  </ng-container>
+</div>
+<select-player-dialog *ngIf="showSelectDialog" [selectedPlayers]="giocatoriSelezionati" [players]="players"
+  (notifyPlayer)="selezionaGiocatori($event)">
+
+</select-player-dialog>

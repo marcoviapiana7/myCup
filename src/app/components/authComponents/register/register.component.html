@@ -1,0 +1,60 @@
+  <form [formGroup]="registrationForm">
+    <div class="row pt-2">
+
+      <div class="pt-2 col-lg-6 col-md-12 d-flex justify-content-center">
+        <span class="p-input-icon-left"><i class="pi pi-user"></i>
+          <input class="form-control" type="text" formControlName="nome" pInputText placeholder="Nome"
+            [(ngModel)]="user.nome">
+        </span>
+      </div>
+
+      <div class="pt-2 col-lg-6 col-md-12 d-flex justify-content-center">
+        <span class="p-input-icon-left"><i class="pi pi-user"></i>
+          <input class="form-control" type="text" formControlName="cognome" pInputText placeholder="Cognome"
+            [(ngModel)]="user.cognome">
+        </span>
+      </div>
+
+      <div class="col-lg-6 col-md-12 pt-2 d-flex justify-content-center">
+        <span class="p-input-icon-left"><i class="pi pi-envelope"></i>
+          <input class="form-control" id="email" type="text" formControlName="email" pInputText placeholder="email"
+            [(ngModel)]="user.email">
+          <p
+            *ngIf="registrationForm.get('email').hasError('email') && !registrationForm.controls['email'].valid && registrationForm.get('email').touched">
+            Email non valida.</p>
+        </span>
+      </div>
+
+      <div class="pt-2 col-lg-6 col-md-12 d-flex justify-content-center">
+        <span class="p-input-icon-left"><i class="pi pi-mobile"></i>
+          <input class="form-control" type="text" formControlName="cellulare" pInputText placeholder="Cellulare"
+            [(ngModel)]="user.cellulare">
+          <div *ngIf="f.cellulare.touched && f.cellulare.invalid" class="alert alert-danger">
+            <div *ngIf="f.cellulare.errors.required">Mobile Number is required.</div>
+            <div *ngIf="f.cellulare.errors.pattern">Please, Enter 10 digit Mobile Number.</div>
+          </div>
+        </span>
+      </div>
+
+      <div class="pt-2 col-lg-6 col-md-12 d-flex justify-content-center">
+        <span class="p-input-icon-left"><i class="pi pi-id-card"></i>
+          <input class="form-control" type="text" formControlName="user" pInputText placeholder="User"
+            [(ngModel)]="user.user">
+        </span>
+      </div>
+
+      <div class="col-lg-6 col-md-12 pt-2 d-flex justify-content-center">
+        <span class="p-input-icon-left"><i class="pi pi-lock"></i>
+          <p-password strongRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})(?=.*[@#.,])" placeholder="Password"
+            formControlName="password" [(ngModel)]="user.password" [toggleMask]="true">
+          </p-password>
+        </span>
+      </div>
+    </div>
+  </form>
+  <div class="row pt-4 d-flex flex-row-reverse">
+    <div class="col-lg-6 col-md-12 d-flex flex-row-reverse">
+      <button pButton [disabled]="registrationForm.invalid" pRipple label="Conferma" icon="pi pi-check"
+        (click)="confermaRegistrazione()"></button>
+    </div>
+  </div>

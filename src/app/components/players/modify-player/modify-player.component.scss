@@ -1,0 +1,15 @@
+.modifyTable {
+  #header {}
+
+  #body {
+    .ruoloStyle {
+      text-align: center
+    }
+  }
+
+  .p-datatable .p-paginator-bottom {
+    position: sticky;
+    width: 100%;
+    bottom: 0;
+  }
+}

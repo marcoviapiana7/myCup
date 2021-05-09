@@ -1,0 +1,13 @@
+.selezionaGiocatori {
+  .p-input-icon-left>i:first-of-type {
+    right: 0.5rem;
+    left: auto !important;
+  }
+
+  .p-datatable .p-paginator-bottom {
+    position: sticky;
+    width: 101%;
+    bottom: -33px;
+  }
+
+}

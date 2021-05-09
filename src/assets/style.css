@@ -1,0 +1,175 @@
+@font-face {
+  font-family: 'icomoon';
+  src: url('fonts/icomoon.eot?jib75n');
+  src: url('fonts/icomoon.eot?jib75n#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?jib75n') format('truetype'),
+    url('fonts/icomoon.woff?jib75n') format('woff'),
+    url('fonts/icomoon.svg?jib75n#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-pallone-rosso .path1:before {
+  content: "\e918";
+  color: rgb(0, 0, 0);
+}
+
+.icon-pallone-rosso .path2:before {
+  content: "\e919";
+  margin-left: -0.9951171875em;
+  color: rgb(255, 27, 21);
+}
+
+.icon-pallone-rosso .path3:before {
+  content: "\e91a";
+  margin-left: -0.9951171875em;
+  color: rgb(255, 255, 255);
+}
+
+.icon-pallone-verde .path1:before {
+  content: "\e914";
+  color: rgb(0, 0, 0);
+}
+
+.icon-pallone-verde .path2:before {
+  content: "\e915";
+  margin-left: -0.9951171875em;
+  color: rgb(0, 233, 92);
+}
+
+.icon-pallone-verde .path3:before {
+  content: "\e916";
+  margin-left: -0.9951171875em;
+  color: rgb(255, 255, 255);
+}
+
+.icon-pallone-verde .path4:before {
+  content: "\e917";
+  margin-left: -0.9951171875em;
+  color: rgb(255, 255, 255);
+}
+
+.icon-scarpa:before {
+  content: "\e913";
+}
+
+.icon-cartellino-rosso:before {
+  content: "\e912";
+  color: #e91300;
+  border: 1px solid black;
+}
+
+.icon-cartellino-giallo:before {
+  content: "\e90f";
+  color: #fffb0a;
+  border: 1px solid black;
+}
+
+.icon-assist .path1:before {
+  content: "\e905";
+  color: rgb(0, 0, 0);
+}
+
+.icon-assist .path2:before {
+  content: "\e907";
+  margin-left: -1.77734375em;
+  color: rgb(254, 254, 254);
+}
+
+.icon-assist .path3:before {
+  content: "\e908";
+  margin-left: -1.77734375em;
+  color: rgb(254, 254, 254);
+}
+
+.icon-assist .path4:before {
+  content: "\e909";
+  margin-left: -1.77734375em;
+  color: rgb(0, 0, 0);
+}
+
+.icon-assist .path5:before {
+  content: "\e90a";
+  margin-left: -1.77734375em;
+  color: rgb(0, 0, 0);
+}
+
+.icon-assist .path6:before {
+  content: "\e90b";
+  margin-left: -1.77734375em;
+  color: rgb(0, 0, 0);
+}
+
+.icon-assist .path7:before {
+  content: "\e90c";
+  margin-left: -1.77734375em;
+  color: rgb(0, 0, 0);
+}
+
+.icon-Cartellino-giallo .path1:before {
+  content: "\e90d";
+  color: rgb(14, 12, 12);
+}
+
+.icon-Cartellino-giallo .path2:before {
+  content: "\e90e";
+  margin-left: -0.6103515625em;
+  color: rgb(254, 251, 1);
+}
+
+.icon-Cartellino-rosso .path1:before {
+  content: "\e910";
+  color: rgb(12, 10, 10);
+}
+
+.icon-Cartellino-rosso .path2:before {
+  content: "\e911";
+  margin-left: -0.58984375em;
+  color: rgb(253, 2, 2);
+}
+
+.icon-el:before {
+  content: "\e904";
+}
+
+.icon-fichietto:before {
+  content: "\e900";
+  color: #000;
+}
+
+.icon-autogol:before {
+  content: "\e902";
+  color: #fe2926;
+}
+
+.icon-cl:before {
+  content: "\e903";
+  color: #000;
+}
+
+.icon-goal-annullato:before {
+  content: "\e906";
+  color: #050505;
+}
+
+.icon-goal:before {
+  content: "\e901";
+  color: #050505;
+}

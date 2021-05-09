@@ -1,0 +1,10 @@
+<p-dialog modal="modal" header="Crea torneo" [(visible)]="showed" (onHide)="closeDialog()">
+  <span class="p-float-label">
+    <input id="float-input" type="text" pInputText [(ngModel)]="torneo.nome">
+    <label for="float-input">Nome torneo</label>
+  </span>
+  <p-footer>
+    <button [disabled]="!torneo.nome" pButton pRipple label="Crea Torneo" icon="pi pi-plus"
+      (click)="creaTorneo()"></button>
+  </p-footer>
+</p-dialog>

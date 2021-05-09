@@ -1,0 +1,59 @@
+<div class="p-2 row d-flex creaGiocatore">
+  <div class="col-lg-4 col-md-6" style="display:grid">
+    <p-avatar *ngIf="player?.nome && player?.cognome && !imgSrc"
+      label="{{player.nome.charAt(0)}}{{player.cognome.charAt(0)}} " styleClass="xlDimensions p-mr-2" size="xlarge"
+      shape="circle"></p-avatar>
+    <p-avatar *ngIf="imgSrc" styleClass="xlDimensions p-mr-2" size="xlarge" shape="circle">
+      <img *ngIf="imgSrc" [src]="imgSrc">
+    </p-avatar>
+    <p-avatar
+      *ngIf="((!player?.nome && player?.cognome) || (player?.nome && !player?.cognome) || (!player?.nome && !player?.cognome)) && !imgSrc"
+      icon="pi pi-user pi-40" styleClass="xlDimensions p-mr-2" size="xlarge" shape="circle">
+    </p-avatar>
+    <h5>Inserisci una foto</h5>
+    <input #inputFile type="file" id="file" (change)="showPreview($event)">
+    <span style="cursor: pointer;" *ngIf="imgSrc" (click)="rimuoviFoto()">Rimuovi</span>
+  </div>
+  <div class="col-lg-8 col-md-6 dati">
+
+    <div class="row">
+      <div class="col-lg-6 pb-2 col-md-12">
+        <input required="true" placeholder="Nome" id="float-input" type="text" pInputText [(ngModel)]="player.nome">
+      </div>
+      <div class="col-lg-6 col-md-12">
+        <input required="true" placeholder="Cognome" id="float-input" type="text" pInputText
+          [(ngModel)]="player.cognome">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 pb-2 col-md-12">
+        <input required="true" placeholder="Soprannome" id="float-input" type="text" pInputText
+          [(ngModel)]="player.soprannome">
+      </div>
+      <div class="col-lg-6 col-md-12">
+        <span class="p-float-label">
+          <label for="float-input">Ruolo</label>
+          <p-dropdown [options]="ruolo" [(ngModel)]="player.ruolo" placeholder="Scegli un ruolo" [showClear]="true">
+          </p-dropdown>
+        </span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="pt-2 col-lg-6 pb-2 col-md-12" style="display: grid">
+        <label for="minmax-buttons">Valore da 1 a 10</label>
+        <p-inputNumber required="true" [(ngModel)]="player.valore" mode="decimal" [showButtons]="true"
+          inputId="minmax-buttons" [min]="1" [max]="10">
+        </p-inputNumber>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="pt-2 col-12 d-flex justify-content-end">
+        <button [disabled]="!(player.nome && player.cognome && player.ruolo && player.valore)" pButton pRipple
+          label="Conferma" icon="pi pi-check" (click)="creaGiocatore()"></button>
+      </div>
+    </div>
+  </div>
+</div>
