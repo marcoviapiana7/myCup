@@ -8,7 +8,7 @@
     <div class="col-lg-4 col-md-6 col-6">
       <h5>Scegli torneo</h5>
       <p-dropdown [options]="torneiDropdown" (onChange)="getAllMatches()" [(ngModel)]="torneo" optionLabel="value"
-        [filter]="true" filterBy="value" [showClear]="true" placeholder="Seleziona torneo">
+        [showClear]="true" placeholder="Seleziona torneo">
         <ng-template pTemplate="selectedItem">
           <div class="tornei tornei-nome" *ngIf="torneo">
             <div>{{torneo.value}}</div>
@@ -28,8 +28,9 @@
     <ng-template pTemplate="left">
       <button pButton pRipple label="New" icon="pi pi-plus" (click)="createMatch()"
         class="p-button-success mr-2"></button>
-      <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="ml-2 mr-2 p-button-danger"
-        (click)="deleteSelectedMatch()" [disabled]="selectedMatches.length < 1"></button>
+      <button style="margin-left:2rem" pButton pRipple [label]="Delete" icon="pi pi-trash"
+        class="d-block ml-2 mr-2 p-button-danger" (click)="deleteSelectedMatch()"
+        [disabled]="selectedMatches.length < 1"></button>
     </ng-template>
 
     <ng-template pTemplate=" right">

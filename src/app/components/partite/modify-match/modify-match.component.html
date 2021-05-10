@@ -26,49 +26,49 @@
       </div>
 
       <div class="row p-0">
-        <div class="col-5 d-flex align-self-center">
-          <input [(ngModel)]="partita.punteggio1" type="number" class="form-control noBorder"
-            style="color: black; text-align: end;" />
-        </div>
+        <div class="col-5 d-flex justify-content-end">
+          <!-- <input [(ngModel)]="partita.punteggio1" type="number" class="form-control noBorder"
+            style="color: black; text-align: end;" /> -->
+          <span style="font-size: 86px;">{{getGoal(1)}}</span> </div>
 
         <div class="col-2 d-flex justify-content-center">
           <span class="textSize">-</span>
         </div>
 
         <div class="col-5 d-flex align-self-center">
-          <input [(ngModel)]="partita.punteggio2" type="number" class="form-control noBorder" style="color:black" />
+          <!-- <input [(ngModel)]="partita.punteggio2" type="number" class="form-control noBorder" style="color:black" /> -->
+          <span style="font-size: 86px;">{{getGoal(2)}}</span>
         </div>
       </div>
 
       <div class="row">
         <div style="display: grid" class="col-5 justify-content-end">
-          <div class="row pt-0" *ngFor="let marcatore of partita.marcatori1 |keyvalue">
-            <!-- {{marcatore.cognome}} {{marcatore.nome[0]}}. ({{partita.marcatori1[marcatore.id]}}) -->
-            <span>{{getMarcatori(marcatore,1)}} ({{marcatore.value}})</span>
+          <div class="row pt-0" *ngFor="let marcatore of marcatori1">
+            {{marcatore.cognome}} {{marcatore.nome[0]}}. ({{partita.marcatori1[marcatore.id]}})
           </div>
-          <div class="row pt-0" *ngFor="let marcatore of partita.autogol2 |keyvalue">
-            <span>{{getMarcatori(marcatore,2)}} ({{marcatore.value}})</span>
+          <div class="row pt-0" *ngFor="let marcatore of autogol1">
+            {{marcatore.cognome}} {{marcatore.nome[0]}}. ({{partita.autogol2[marcatore.id]}})
           </div>
         </div>
 
         <div style="display: grid" class="col-5 justify-content-end">
-          <div class="row pt-0" *ngFor="let marcatore of partita.marcatori2 |keyvalue">
-            <span>{{getMarcatori(marcatore,2)}} ({{marcatore.value}})</span>
+          <div class="row pt-0" *ngFor="let marcatore of marcatori2">
+            {{marcatore.cognome}} {{marcatore.nome[0]}}. ({{partita.marcatori2[marcatore.id]}})
           </div>
-          <div class="row pt-0" *ngFor="let marcatore of partita.autogol1 |keyvalue">
-            <span>{{getMarcatori(marcatore,1)}} ({{marcatore.value}})</span>
+          <div class="row pt-0" *ngFor="let marcatore of autogol2">
+            {{marcatore.cognome}} {{marcatore.nome[0]}}. ({{partita.autogol1[marcatore.id]}})
           </div>
         </div>
 
       </div>
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-5">
           <span>Gol casa : {{getGoal(1)}} </span>
         </div>
         <div class="col-7 d-flex justify-content-end">
           <span>Gol ospiti : {{getGoal(2)}} </span>
         </div>
-      </div>
+      </div> -->
     </p-card>
 
     <!--card per visualizzare i giocatori
@@ -433,33 +433,39 @@
 
     <!--Ammoniti-->
     <div class="row pl-3">
-      <span>Ammoniti: [ </span>
-      <div *ngFor="let ammonito of partita.ammoniti; let last = last">
-        <span *ngIf="!last">{{ammonito.cognome}} {{ammonito.nome[0]}}., </span>
-        <span *ngIf="last">{{ammonito.cognome}} {{ammonito.nome[0]}}. </span>
+      <div class="col-12">
+        <span>Ammoniti: [ </span>
+        <ng-container *ngFor="let ammonito of partita.ammoniti; let last = last">
+          <span *ngIf="!last">{{ammonito.cognome}} {{ammonito.nome[0]}}., </span>
+          <span *ngIf="last">{{ammonito.cognome}} {{ammonito.nome[0]}}. </span>
+        </ng-container>
+        <span>]</span>
       </div>
-      <span>]</span>
     </div>
 
     <!--Espulsi-->
     <div class="row pl-3">
-      <span>Espulsi: [ </span>
-      <ng-container *ngFor="let espulso of partita.espulsi; let last = last">
-        <span *ngIf="!last">{{espulso.cognome}} {{espulso.nome[0]}}., </span>
-        <span *ngIf="last">{{espulso.cognome}} {{espulso.nome[0]}}. </span>
-      </ng-container>
-      <span>]</span>
+      <div class="col-12">
+        <span>Espulsi: [ </span>
+        <ng-container *ngFor="let espulso of partita.espulsi; let last = last">
+          <span *ngIf="!last">{{espulso.cognome}} {{espulso.nome[0]}}., </span>
+          <span *ngIf="last">{{espulso.cognome}} {{espulso.nome[0]}}. </span>
+        </ng-container>
+        <span>]</span>
+      </div>
     </div>
 
     <!--Assist-->
     <div class="row pl-3">
-      <span>Assist: [ </span>
-      <ng-container *ngFor="let player of partita.assist |keyvalue; let last = last">
+      <div class="col-12">
+        <span>Assist: [ </span>
+        <ng-container *ngFor="let player of partita.assist |keyvalue; let last = last">
 
-        <span *ngIf="!last">{{getMarcatori(player)}} ({{player.value}}), </span>
-        <span *ngIf="last">{{getMarcatori(player)}} ({{player.value}})</span>
-      </ng-container>
-      <span>] </span>
+          <span *ngIf="!last">{{getMarcatori(player)}} ({{player.value}}), </span>
+          <span *ngIf="last">{{getMarcatori(player)}} ({{player.value}})</span>
+        </ng-container>
+        <span>] </span>
+      </div>
     </div>
 
     <!--Reset-->

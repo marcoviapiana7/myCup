@@ -2,16 +2,19 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Match } from '../models/match.models';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MatchService {
-  private dbPath = '/cups/';
+  private dbPath = '';
   matchRef: AngularFireList<Match>;
   _matchRef: AngularFireObject<Match>;
 
-  constructor(private db: AngularFireDatabase, private afStorage: AngularFireStorage) {
+  constructor(private db: AngularFireDatabase, private afStorage: AngularFireStorage, private authService: AuthService) {
+    let user = this.authService.getUser();
+    this.dbPath = user.email.split('@')[0] + '/cups/';
     this.matchRef = this.db.list(this.dbPath);
   }
 

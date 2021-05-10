@@ -1,15 +1,17 @@
 <div #homePage id="homePage">
   <p-toolbar class="fluttuante">
-    <div class="p-toolbar-group-left col-4 d-flex justify-content-end">
-      <p-button type="text" (click)="display = true" icon="pi pi-bars" label="Menu"></p-button>
+    <div class="p-toolbar-group-left col-4 d-flex justify-content-center">
+      <!-- <p-button type="text" (click)="display = true" icon="pi pi-bars" label="Menu"></p-button> -->
+      <button pButton pRipple type="button" icon="pi pi-bars" (click)="display=true"
+        class="p-button-rounded p-button-info"></button>
     </div>
 
     <div class="p-toolbar-group col-4 d-flex justify-content-center">
-      <i (click)="backHome()" class="pi pi-home" style="cursor: pointer; font-size: 2rem; color:#2196F3"
-        label="Menu"></i>
+      <button pButton pRipple type="button" icon="pi pi-home" (click)="backHome()"
+        class="p-button-rounded p-button-info"></button>
     </div>
 
-    <div class="p-toolbar-group-right col-4 d-flex justify-content-end">
+    <div class="p-toolbar-group-right col-4 d-flex justify-content-center">
       <button pButton pRipple type="button" icon="pi pi-user" (click)="navigateLogin()"
         class="p-button-rounded p-button-info"></button>
     </div>
@@ -24,7 +26,7 @@
           <span></span>
         </div>
         <div class="col-4">
-          <i (click)="logout()" class="pi pi-sign-out" style="cursor: pointer; font-size: 2rem; color:#2196F3"
+          <i (click)="logout()" class="pi pi-sign-out" style="cursor: pointer; font-size: 2rem; color:#FFC107"
             label="Logout"></i>
         </div>
       </div>

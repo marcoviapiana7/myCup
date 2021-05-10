@@ -2,16 +2,21 @@ import { Injectable } from '@angular/core';
 import { Player } from '../models/player.model';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { AuthService } from './auth.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlayerService {
-  private dbPath = '/calciatori';
+  private dbPath;
   playerRef: AngularFireList<Player>;
+  public afAuth: AngularFireAuth;
   _playerRef: AngularFireObject<Player>;
 
-  constructor(private db: AngularFireDatabase, private afStorage: AngularFireStorage) {
+  constructor(private db: AngularFireDatabase, private afStorage: AngularFireStorage, private authService: AuthService) {
+    let user = this.authService.getUser();
+    this.dbPath = user.email.split('@')[0] + '/calciatori';
     this.playerRef = db.list(this.dbPath);
   }
 

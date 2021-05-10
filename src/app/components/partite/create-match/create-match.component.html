@@ -468,32 +468,38 @@
 
     <!--Ammoniti-->
     <div class="row pl-3">
-      <span>Ammoniti: [ </span>
-      <div *ngFor="let ammonito of partita.ammoniti; let last = last">
-        <span *ngIf="!last">{{ammonito.cognome}} {{ammonito.nome[0]}}., </span>
-        <span *ngIf="last">{{ammonito.cognome}} {{ammonito.nome[0]}}. </span>
+      <div class="col-12">
+        <span>Ammoniti: [ </span>
+        <ng-container *ngFor="let ammonito of partita.ammoniti; let last = last">
+          <span *ngIf="!last">{{ammonito.cognome}} {{ammonito.nome[0]}}., </span>
+          <span *ngIf="last">{{ammonito.cognome}} {{ammonito.nome[0]}}. </span>
+        </ng-container>
+        <span>]</span>
       </div>
-      <span>]</span>
     </div>
 
     <!--Espulsi-->
     <div class="row pl-3">
-      <span>Espulsi: [ </span>
-      <ng-container *ngFor="let espulso of partita.espulsi; let last = last">
-        <span *ngIf="!last">{{espulso.cognome}} {{espulso.nome[0]}}., </span>
-        <span *ngIf="last">{{espulso.cognome}} {{espulso.nome[0]}}. </span>
-      </ng-container>
-      <span>]</span>
+      <div class="col-12">
+        <span>Espulsi: [ </span>
+        <ng-container *ngFor="let espulso of partita.espulsi; let last = last">
+          <span *ngIf="!last">{{espulso.cognome}} {{espulso.nome[0]}}., </span>
+          <span *ngIf="last">{{espulso.cognome}} {{espulso.nome[0]}}. </span>
+        </ng-container>
+        <span>]</span>
+      </div>
     </div>
 
     <!--Assist-->
     <div class="row pl-3">
-      <span>Assist: [ </span>
-      <ng-container *ngFor="let player of assist; let last = last">
-        <span *ngIf="!last">{{player.cognome}} {{player.nome[0]}}. ({{partita.assist[player.id]}}), </span>
-        <span *ngIf="last">{{player.cognome}} {{player.nome[0]}}. ({{partita.assist[player.id]}})</span>
-      </ng-container>
-      <span>] </span>
+      <div class="col-12">
+        <span>Assist: [ </span>
+        <ng-container *ngFor="let player of assist; let last = last">
+          <span *ngIf="!last">{{player.cognome}} {{player.nome[0]}}. ({{partita.assist[player.id]}}), </span>
+          <span *ngIf="last">{{player.cognome}} {{player.nome[0]}}. ({{partita.assist[player.id]}})</span>
+        </ng-container>
+        <span>] </span>
+      </div>
     </div>
 
     <!--Reset-->

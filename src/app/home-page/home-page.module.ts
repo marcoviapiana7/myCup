@@ -41,7 +41,6 @@ import { DialogComponentsModule } from '../modules/dialog-module/dialog-componen
     ToolbarModule,
     PasswordModule,
     InputTextModule,
-    IonicModule.forRoot(),
     DialogComponentsModule,
     ToastModule,
     AuthModule,

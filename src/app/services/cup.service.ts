@@ -4,16 +4,19 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs';
 import { Cup } from '../models/cup.models';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CupService {
-  private dbPath = '/cups';
+  private dbPath;
   cupRef: AngularFireList<Cup>;
   _cupRef: AngularFireObject<Cup>;
 
-  constructor(private db: AngularFireDatabase, private afStorage: AngularFireStorage) {
+  constructor(private db: AngularFireDatabase, private afStorage: AngularFireStorage, private authService: AuthService) {
+    let user = this.authService.getUser();
+    this.dbPath = user.email.split('@')[0] + '/cups';
     this.cupRef = this.db.list(this.dbPath);
   }
 

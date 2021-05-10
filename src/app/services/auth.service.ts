@@ -137,4 +137,10 @@ export class AuthService {
     })
   }
 
+  getUser() {
+    if (this.isLoggedIn) {
+      return this.userData;
+    }
+  }
+
 }

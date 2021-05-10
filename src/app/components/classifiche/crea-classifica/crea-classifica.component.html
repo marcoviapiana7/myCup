@@ -1,8 +1,8 @@
 <div class="row">
   <div class="col-lg-4 col-md-6 col-6">
     <h5>Scegli torneo</h5>
-    <p-dropdown [options]="torneiDropdown" [(ngModel)]="torneo" optionLabel="value" [filter]="true" filterBy="value"
-      [showClear]="true" placeholder="Seleziona torneo" (onChange)="getAllMatches()">
+    <p-dropdown [options]="torneiDropdown" [(ngModel)]="torneo" optionLabel="value" [showClear]="true"
+      placeholder="Seleziona torneo" (onChange)="getAllMatches()">
       <ng-template pTemplate="selectedItem">
         <div class="tornei tornei-nome" *ngIf="torneo">
           <div>{{torneo.value}}</div>
@@ -16,15 +16,15 @@
     </p-dropdown>
   </div>
 </div>
-<div *ngIf="torneo && matches.length>0 && playersClassifica.length>0">
-  <button class="mr-2" type="button" pButton pRipple icon="pi pi-envelope" (click)="dt.exportCSV()"
-    tooltipPosition="bottom"></button>
-  <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success mr-2"
-    pTooltip="XLS" tooltipPosition="bottom"></button>
-  <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="generatePdf()" class="p-button-warning mr-2"
-    pTooltip="PDF" tooltipPosition="bottom"></button>
-  <button type="button" pButton pRipple icon="pi pi-filter" class="p-button-info ml-auto" pTooltip="Selection Only"
-    tooltipPosition="bottom"></button>
+<div class="row d-flex justify-content-end pt-2" *ngIf="torneo && matches.length>0 && playersClassifica.length>0">
+  <div class="col-4 d-flex justify-content-end ">
+    <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success mr-2"
+      pTooltip="XLS" tooltipPosition="bottom"></button>
+  </div>
+  <div class="col-4 d-flex justify-content-end ">
+    <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="generatePdf()" class="p-button-danger mr-2"
+      pTooltip="PDF" tooltipPosition="bottom"></button>
+  </div>
 </div>
 <div id="capture" class="row">
   <p-table *ngIf="torneo && matches.length>0 && playersClassifica.length>0" #dt autoLayout=true [columns]="cols"
