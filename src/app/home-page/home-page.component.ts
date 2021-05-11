@@ -11,25 +11,28 @@ import { MessageService } from 'primeng/api';
 })
 export class HomePageComponent implements OnInit {
   public display: boolean;
+  public banner: boolean;
 
   constructor(private router: Router, public authService: AuthService, private messageService: MessageService) {
 
   }
 
   ngOnInit(): void {
+    this.banner = true;
+    this.router.navigate(['home/dashboard']);
   }
 
   navigateLogin() {
+    // this.router.navigate(['home/profile']);
+  }
+
+  backHome() {
     if (this.authService.isLoggedIn === true) {
       this.router.navigate(['home/dashboard']);
     }
     else {
       this.router.navigate(['home/login']);
     }
-  }
-
-  backHome() {
-    this.router.navigate(['home']);
   }
 
   logout() {
@@ -46,5 +49,11 @@ export class HomePageComponent implements OnInit {
 
   clear() {
     this.messageService.clear();
+  }
+
+  closeBanner() {
+    this.banner = false;
+  }
+  openUrl() {
   }
 }

@@ -17,18 +17,7 @@ export class AuthService {
     public router: Router,
     public ngZone: NgZone // NgZone service to remove outside scope warning
   ) {
-    /* Saving user data in sessionStorage when 
-    logged in and setting up null when logged out */
-    this.afAuth.authState.subscribe(user => {
-      if (user) {
-        this.userData = user;
-        sessionStorage.setItem('user', JSON.stringify(this.userData));
-        JSON.parse(sessionStorage.getItem('user'));
-      } else {
-        sessionStorage.setItem('user', null);
-        JSON.parse(sessionStorage.getItem('user'));
-      }
-    })
+
   }
 
   // Sign in with email/password
@@ -36,12 +25,29 @@ export class AuthService {
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['home/dashboard']);
+          this.storeUser();
         });
         this.setUserData(result.user);
       }).catch((error) => {
         window.alert(error.message)
       })
+  }
+
+  /* Saving user data in sessionStorage when 
+    logged in and setting up null when logged out */
+  storeUser() {
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.userData = user;
+        sessionStorage.setItem('user', JSON.stringify(this.userData));
+        JSON.parse(sessionStorage.getItem('user'));
+        this.router.navigate(['home/dashboard']);
+      } else {
+        sessionStorage.setItem('user', null);
+        JSON.parse(sessionStorage.getItem('user'));
+        this.router.navigate(['home/dashboard']);
+      }
+    })
   }
 
   // Sign up with email/password

@@ -1,3 +1,4 @@
+import { ModifyCupComponent } from './modify-cup/modify-cup.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CreateCupDialogComponent } from './create-cup-dialog/create-cup-dialog.component';
@@ -27,6 +28,7 @@ import { AuthModule } from '../authComponents/auth.module';
 @NgModule({
   declarations: [
     CreateCupDialogComponent,
+    ModifyCupComponent
   ],
   imports: [
     CommonModule,
@@ -54,6 +56,8 @@ import { AuthModule } from '../authComponents/auth.module';
   ],
   exports: [
     CreateCupDialogComponent,
-  ]
+    ModifyCupComponent
+  ],
+  providers: []
 })
 export class CupModule { }

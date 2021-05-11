@@ -40,8 +40,8 @@
   </p-toolbar>
 
   <div style="position: relative;">
-    <p-table #dt [value]="matches" [rows]="10" [paginator]="true" [globalFilterFields]="['id']"
-      [(selection)]="selectedMatches" [rowHover]="true" dataKey="id"
+    <p-table *ngIf="torneo" #dt [value]="matches" [rows]="10" [paginator]="true" [globalFilterFields]="['id']"
+      [(selection)]="selectedMatches" autoLayout="true" [rowHover]="true" dataKey="id"
       currentPageReportTemplate="Risultati per pagina : {last} di {totalRecords} partite"
       [showCurrentPageReport]="true">
 

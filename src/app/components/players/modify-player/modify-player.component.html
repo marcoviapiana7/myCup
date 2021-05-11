@@ -19,8 +19,8 @@
   </p-toolbar>
 
   <div style="position: relative;">
-    <p-table #dt [value]="players" [rows]="10" [paginator]="true" [globalFilterFields]="['nome','cognome','ruolo']"
-      [(selection)]="selectedPlayers" [rowHover]="true" dataKey="id"
+    <p-table #dt [value]="players" autoLayout=true [rows]="10" [paginator]="true"
+      [globalFilterFields]="['nome','cognome','ruolo']" [(selection)]="selectedPlayers" [rowHover]="true" dataKey="id"
       currentPageReportTemplate="Risultati per pagina : {last} di {totalRecords} giocatori"
       [showCurrentPageReport]="true">
 
@@ -48,9 +48,9 @@
           </th>
           <th *ngIf="schermoGrande" pSortableColumn="soprannome">Soprannome <p-sortIcon field="soprannome"></p-sortIcon>
           </th>
-          <th *ngIf="schermoGrande">Foto</th>
           <th pSortableColumn="ruolo">Ruolo <p-sortIcon field="ruolo"></p-sortIcon>
           </th>
+          <th>Foto</th>
           <th *ngIf="schermoGrande"></th>
         </tr>
       </ng-template>
@@ -63,15 +63,15 @@
           </td>
           <td (click)="editPlayer(player)" style="font-weight: 600;">{{player.nome}}</td>
           <td (click)="editPlayer(player)" style="font-weight: 600;">{{player.cognome}}</td>
-          <td (click)="editPlayer(player)" *ngIf="schermoGrande">
+          <td (click)="editPlayer(player)" [ngClass]="schermoGrande ? '' : 'ruoloStyle'">
+            <span>{{ schermoGrande ? player.ruolo : player.ruolo[0]}}</span>
+          </td>
+          <td (click)="editPlayer(player)">
             <p-avatar *ngIf="player.foto" styleClass=" mr-2" size="large" shape="circle">
               <img src="{{player.foto}}">
             </p-avatar>
             <p-avatar *ngIf="!player.foto" icon="pi pi-user" styleClass="mr-2" size="large" shape="circle">
             </p-avatar>
-          </td>
-          <td (click)="editPlayer(player)" [ngClass]="schermoGrande ? '' : 'ruoloStyle'">
-            <span>{{ schermoGrande ? player.ruolo : player.ruolo[0]}}</span>
           </td>
           <td (click)="editPlayer(player)" *ngIf="schermoGrande">
             <button pButton pRipple icon=" pi pi-pencil" class="p-button-rounded p-button-success mr-2"

@@ -36,14 +36,17 @@ export class CupService {
     this._cupRef.remove();
   }
 
-  updateCup(cupNuovo: Cup, cupVecchio: Cup) {
+  updateCup(cupVecchio: Cup, cupNuovo: Cup) {
     if (this.esiste(cupVecchio)) {
       this._cupRef = this.db.object(this.dbPath + '/' + this.getCupId(cupVecchio))
-      this._cupRef.update({
-        id: this.getCupId(cupNuovo),
-        nome: cupNuovo.nome,
-        partite: cupVecchio.partite
-      })
+      // this._cupRef.update({
+      //   id: this.getCupId(cupNuovo),
+      //   nome: cupNuovo.nome,
+      //   partite: cupVecchio.partite
+      // })
+      cupNuovo.partite = cupVecchio.partite;
+      this.deleteCup(cupVecchio);
+      this.addCup(cupNuovo);
       return true;
     }
     else {

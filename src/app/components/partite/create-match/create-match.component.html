@@ -11,8 +11,8 @@
 
     <div class="col-lg-4 col-md-6 col-6">
       <h5>Scegli torneo</h5>
-      <p-dropdown [options]="torneiDropdown" [(ngModel)]="torneo" optionLabel="value" [filter]="true" filterBy="value"
-        [showClear]="true" placeholder="Seleziona torneo">
+      <p-dropdown [options]="torneiDropdown" [(ngModel)]="torneo" optionLabel="value" [showClear]="true"
+        placeholder="Seleziona torneo">
         <ng-template pTemplate="selectedItem">
           <div class="tornei tornei-nome" *ngIf="torneo">
             <div>{{torneo.value}}</div>

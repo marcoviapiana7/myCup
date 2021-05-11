@@ -16,10 +16,12 @@ export class DashboardComponent implements OnInit {
   public cupItems: MenuItem[];
   public matchItems: MenuItem[];
   public creaTorneo: boolean;
+  public modifyTorneo: boolean;
 
   constructor(public router: Router, public authService: AuthService) { }
 
   ngOnInit(): void {
+    this.modifyTorneo = false;
     this.playerItems = [
       {
         label: 'Crea', icon: 'pi pi-user-plus', command: () => {
@@ -41,11 +43,10 @@ export class DashboardComponent implements OnInit {
       },
       {
         label: 'Modifica Torneo', icon: 'pi pi-pencil', command: () => {
-          // this.router.navigate(['home/players']);
+          this.modifyTorneo = true;
         }
       },
     ];
-
     this.matchItems = [
       {
         label: 'Crea', icon: 'pi pi-plus', command: () => {

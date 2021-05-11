@@ -1,4 +1,5 @@
 
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarModule } from 'primeng/sidebar';
@@ -15,10 +16,12 @@ import { SplitButtonModule } from 'primeng/splitbutton'
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthModule } from '../authComponents/auth.module';
 import { CupModule } from '../cup/cup.module';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +41,8 @@ import { CupModule } from '../cup/cup.module';
     SplitButtonModule,
   ],
   exports: [
-    DashboardComponent
+    DashboardComponent,
+    ProfileComponent
   ],
 })
 export class UserModule { }

@@ -1,5 +1,5 @@
 <!-- Home Quando l'utente è loggato -->
-<div class="row p-4" *ngIf="authService.isLoggedIn == true">
+<div class="row p-4" *ngIf="!modifyTorneo && authService.isLoggedIn == true">
   <div class="pt-2 col-lg-6 col-md-6 col-sm-6 d-flex justify-content-center">
     <p-card header="Giocatori" [style]="{width: '360px'}" styleClass="p-card-shadow">
       <ng-template pTemplate="header">
@@ -45,7 +45,7 @@
   <div class="pt-2 col-lg-6 col-md-6 col-sm-6 d-flex justify-content-center">
     <p-card header="Scarica classifiche" [style]="{width: '360px'}" styleClass="p-card-shadow">
       <ng-template pTemplate="header">
-        <img alt="Card" src="assets/gruppo.jpg" width="360" height="270">
+        <img alt="Card" src="assets/premiazioni.png" width="360" height="170">
       </ng-template>
       <p>Scarica la classifica in PDF/xls di un campionato</p>
       <ng-template pTemplate="footer">
@@ -58,3 +58,4 @@
 </div>
 
 <create-cup-dialog *ngIf="creaTorneo" (cupEmitter)="creaTorneo = false"></create-cup-dialog>
+<modify-cup *ngIf="modifyTorneo" (modifyCupEmitter)="modifyTorneo = false"></modify-cup>

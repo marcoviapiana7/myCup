@@ -43,3 +43,18 @@
 
   <p-toast position="top-center"></p-toast>
 </div>
+
+<div class="pt-2" *ngIf="banner" style="position: sticky; bottom: 0">
+  <button style="position: absolute; right: 0; height: 1rem; width: 1rem;" pButton pRipple type="button"
+    icon="pi pi-times" (click)="banner=false" class="p-button-rounded p-button-info"></button>
+  <div class="d-flex row p-0">
+    <!-- <span id='close' style="text-align: end;" (click)="closeBanner()">x</span> -->
+    <div class="col-6 d-flex justify-content-center p-0">
+      <img alt="Card" src="assets/D&D-bianco.jpg" width="350" height="90">
+    </div>
+
+    <div class="col-6 d-flex justify-content-center p-0">
+      <img alt="Card" src="assets/D&D-blu.jpg" width="350" height="90">
+    </div>
+  </div>
+</div>
