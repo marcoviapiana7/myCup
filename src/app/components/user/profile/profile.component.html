@@ -1,0 +1,60 @@
+<div class="p-2 row d-flex">
+  <div class="col-lg-4 col-md-12" style="display:grid">
+    <p-avatar *ngIf="player?.nome && player?.cognome && !(imgSrc || player.foto)"
+      label="{{player.nome.charAt(0)}}{{player.cognome.charAt(0)}} " styleClass="xlDimensions p-mr-2" size="xlarge"
+      shape="circle"></p-avatar>
+    <p-avatar *ngIf="imgSrc || player?.foto" styleClass="xlDimensions p-mr-2" size="xlarge" shape="circle">
+      <img *ngIf="imgSrc" [src]="imgSrc">
+      <img *ngIf="player.foto && !imgSrc" [src]="player.foto">
+    </p-avatar>
+    <p-avatar
+      *ngIf="((!player?.nome && player?.cognome) || (player?.nome && !player?.cognome) || (!player?.nome && !player?.cognome)) && (!imgSrc || !player.foto)"
+      icon="pi pi-user pi-40" styleClass="xlDimensions p-mr-2" size="xlarge" shape="circle">
+    </p-avatar>
+    <h5>Inserisci una foto</h5>
+    <input #inputFile type="file" id="file" (change)="showPreview($event)">
+    <span style="cursor: pointer;" *ngIf="imgSrc" (click)="rimuoviFoto()">Rimuovi</span>
+  </div>
+  <div class="col-lg-8 col-md-12">
+
+    <div class="row">
+      <div class="col-lg-6 col-md-12 pb-4">
+        <span class="p-float-label">
+          <input required="true" id="float-input" type="text" pInputText [(ngModel)]="player.nome">
+          <label for="float-input">Nome</label>
+        </span>
+      </div>
+      <div class="col-lg-6 col-md-12 pb-4">
+        <span class="p-float-label">
+          <input required="true" id="float-input" type="text" pInputText [(ngModel)]="player.cognome">
+          <label for="float-input">Cognome</label>
+        </span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 col-md-12 pb-4">
+        <span class="p-float-label">
+          <input required="true" id="float-input" type="text" pInputText [(ngModel)]="player.soprannome">
+          <label for="float-input">Soprannome</label>
+        </span>
+      </div>
+      <div class="col-lg-6 col-md-12 pb-4">
+        <span class="p-float-label">
+          <label for="float-input">Ruolo</label>
+          <p-dropdown [options]="ruolo" [(ngModel)]="player.ruolo" placeholder="Scegli un ruolo" [showClear]="true">
+          </p-dropdown>
+        </span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 col-md-12 pb-4" style="display: grid">
+        <label for="minmax-buttons">Valore da 1 a 10</label>
+        <p-inputNumber required="true" [(ngModel)]="player.valore" mode="decimal" [showButtons]="true"
+          inputId="minmax-buttons" [min]="1" [max]="10">
+        </p-inputNumber>
+      </div>
+    </div>
+  </div>
+</div>
