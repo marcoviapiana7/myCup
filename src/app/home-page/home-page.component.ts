@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -12,9 +12,21 @@ import { MessageService } from 'primeng/api';
 export class HomePageComponent implements OnInit {
   public display: boolean;
   public banner: boolean;
+  public schermoGrande: boolean;
 
   constructor(private router: Router, public authService: AuthService, private messageService: MessageService) {
 
+  }
+
+  @HostListener('window:orientationchange', ['$event'])
+  onOrientationChange(event) {
+    console.log('orientationChanged');
+    if (window.screen.width <= 500) {
+      this.schermoGrande = false;
+    }
+    else {
+      this.schermoGrande = true;
+    }
   }
 
   ngOnInit(): void {
