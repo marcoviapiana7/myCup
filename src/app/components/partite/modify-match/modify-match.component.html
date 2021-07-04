@@ -43,32 +43,24 @@
 
       <div class="row">
         <div style="display: grid" class="col-5 justify-content-end">
-          <div class="row pt-0" *ngFor="let marcatore of marcatori1">
-            {{marcatore.cognome}} {{marcatore.nome[0]}}. ({{partita.marcatori1[marcatore.id]}})
+          <div class="row pt-0" *ngFor="let player of partita.marcatori1 |keyvalue; let last = last">
+            <span>{{getMarcatori(player)}} ({{player.value}}) </span>
           </div>
-          <div class="row pt-0" *ngFor="let marcatore of autogol1">
-            {{marcatore.cognome}} {{marcatore.nome[0]}}. ({{partita.autogol2[marcatore.id]}})
+          <div class="row pt-0" *ngFor="let player of partita.autogol2 |keyvalue; let last = last">
+            <span>{{getMarcatori(player)}} ({{player.value}}) A </span>
           </div>
         </div>
 
         <div style="display: grid" class="col-5 justify-content-end">
-          <div class="row pt-0" *ngFor="let marcatore of marcatori2">
-            {{marcatore.cognome}} {{marcatore.nome[0]}}. ({{partita.marcatori2[marcatore.id]}})
+          <div class="row pt-0" *ngFor="let player of partita.marcatori2 |keyvalue; let last = last">
+            <span>{{getMarcatori(player)}} ({{player.value}}) </span>
           </div>
-          <div class="row pt-0" *ngFor="let marcatore of autogol2">
-            {{marcatore.cognome}} {{marcatore.nome[0]}}. ({{partita.autogol1[marcatore.id]}})
+          <div class="row pt-0" *ngFor="let player of partita.autogol1 |keyvalue; let last = last">
+            <span>{{getMarcatori(player)}} ({{player.value}}) A </span>
           </div>
         </div>
 
       </div>
-      <!-- <div class="row">
-        <div class="col-5">
-          <span>Gol casa : {{getGoal(1)}} </span>
-        </div>
-        <div class="col-7 d-flex justify-content-end">
-          <span>Gol ospiti : {{getGoal(2)}} </span>
-        </div>
-      </div> -->
     </p-card>
 
     <!--card per visualizzare i giocatori

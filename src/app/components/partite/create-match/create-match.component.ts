@@ -309,7 +309,7 @@ export class CreateMatchComponent implements OnInit {
     Object.keys(this.partita.assist).forEach(assistMan => {
       a += this.partita.assist[assistMan];
     })
-    return a < this.partita.punteggio1 + this.partita.punteggio2;
+    return a <= this.partita.punteggio1 + this.partita.punteggio2;
   }
 
   salva() {

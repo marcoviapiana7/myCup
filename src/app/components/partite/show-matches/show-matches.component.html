@@ -89,9 +89,9 @@
           <td (click)="editMatch(match)" *ngIf="schermoGrande">{{match.squadra1.nome}}</td>
           <td (click)="editMatch(match)" *ngIf="schermoGrande">{{match.squadra2.nome}}</td>
           <td (click)="editMatch(match)" style="font-weight: 600;">{{match.punteggio1}} - {{match.punteggio2}}</td>
-          <td (click)="editMatch(match)" *ngIf="schermoGrande">
-            <button pButton pRipple icon=" pi pi-pencil" class="p-button-rounded p-button-success mr-2"
-              (click)="editMatch(match)"></button>
+          <td *ngIf="schermoGrande">
+            <button style="margin-right: 1rem" pButton pRipple icon=" pi pi-pencil"
+              class="p-button-rounded p-button-success mr-2" (click)="editMatch(match)"></button>
             <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
               (click)="deleteMatch(match)"></button>
           </td>

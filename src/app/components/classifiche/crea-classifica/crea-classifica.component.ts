@@ -200,7 +200,7 @@ export class CreaClassificaComponent implements OnInit {
   }
 
   getMediaFattore(player: Player) {
-    return ((this.getMediaPunti(player) + this.getFattore(player)) / 2) || 0;
+    return Number(((this.getMediaPunti(player) + this.getFattore(player)) / 2).toFixed(1)) || 0;
   }
 
   getGoal(player: Player) {
@@ -208,7 +208,7 @@ export class CreaClassificaComponent implements OnInit {
     if (this.matches.length > 0) {
       this.matches.forEach(match => {
         if (Object.keys(match.marcatori1).includes(player.id) || Object.keys(match.marcatori2).includes(player.id)) {
-          g++;
+          g += match.marcatori1[player.id] || match.marcatori2[player.id];
         }
       })
     }
@@ -219,8 +219,11 @@ export class CreaClassificaComponent implements OnInit {
     let g = 0;
     if (this.matches.length > 0) {
       this.matches.forEach(match => {
-        if ((match.autogol1 && Object.keys(match.autogol1).includes(player.id)) || (match.autogol2 && Object.keys(match.autogol2).includes(player.id))) {
-          g++;
+        if (match.autogol1 && Object.keys(match.autogol1).includes(player.id)) {
+          g += match.autogol1[player.id];
+        }
+        if (match.autogol2 && Object.keys(match.autogol2).includes(player.id)) {
+          g += match.autogol2[player.id];
         }
       });
     }

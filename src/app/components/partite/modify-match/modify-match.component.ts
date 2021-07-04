@@ -45,6 +45,7 @@ export class ModifyMatchComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.initVariabili();
     if (window.screen.width <= 500) {
       this.schermoGrande = false;
     }
@@ -56,7 +57,6 @@ export class ModifyMatchComponent implements OnInit {
     this.showSelectDialog = false;
     this.getData();
     this.matchVecchio = this.partita.id;
-    this.initVariabili();
   }
 
   initVariabili() {
