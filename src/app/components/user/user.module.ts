@@ -17,6 +17,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthModule } from '../authComponents/auth.module';
 import { CupModule } from '../cup/cup.module';
 import { ProfileComponent } from './profile/profile.component';
+import { AvatarModule } from 'primeng/avatar';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ProfileComponent } from './profile/profile.component';
     CupModule,
     CardModule,
     SplitButtonModule,
+    AvatarModule,
   ],
   exports: [
     DashboardComponent,
