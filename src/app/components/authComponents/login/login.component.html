@@ -38,7 +38,11 @@
 
 <!-- Password dimenticata -->
 <div class="row pt-3 ">
-  <div class="pt-1 col-12 d-flex justify-content-center">
+  <div class="pt-1 col-6 d-flex justify-content-center">
     <span style="cursor:pointer" (click)="lostPassword()">Password dimenticata</span>
+  </div>
+  <div class="pt-1 col-6 d-flex justify-content-center">
+    <p-checkbox [(ngModel)]="memorize" binary="true" inputId="binary"></p-checkbox>
+    <label for="binary">Ricordami</label>
   </div>
 </div>

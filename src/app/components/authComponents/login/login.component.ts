@@ -15,11 +15,17 @@ export class LoginComponent implements OnInit {
   public password: string;
   public email: string;
   public register: boolean;
+  public memorize: boolean = false;;
   @Output() loginEvent = new EventEmitter<UserLogIn>();
 
   constructor(public authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    if (window.localStorage.getItem("user") && window.localStorage.getItem("password")) {
+      this.memorize = true;
+      this.email = window.localStorage.user;
+      this.password = window.localStorage.getItem("password");
+    }
   }
 
   navigateRegister() {
@@ -31,6 +37,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.authService.signIn(this.email, this.password)
+    this.authService.signIn(this.email, this.password, this.memorize)
   }
 }

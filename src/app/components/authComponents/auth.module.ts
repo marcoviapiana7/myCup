@@ -13,7 +13,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RegisterComponent } from './register/register.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
-
+import { CheckboxModule } from 'primeng/checkbox';
 
 
 @NgModule({
@@ -34,7 +34,8 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
     ToolbarModule,
     PasswordModule,
     InputTextModule,
-    DialogModule
+    DialogModule,
+    CheckboxModule
   ],
   exports: [
     ForgotPasswordComponent,
